@@ -1,4 +1,4 @@
-package com.itliszakk.comics;
+package com.itiszakk.comics;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

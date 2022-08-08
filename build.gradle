@@ -4,8 +4,8 @@ plugins {
 	id 'java'
 }
 
-group = 'com.itliszakk'
-version = '0.0.1-SNAPSHOT'
+group = 'com.itiszakk'
+version = '0.0.1'
 sourceCompatibility = '17'
 
 configurations {
