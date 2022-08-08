@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  postgresql:
+    image: postgres:14.4-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: comics_user
+      POSTGRES_PASSWORD: comics_password
+      POSTGRES_DB: comics_db
+    ports:
+      - '5432:5432'
