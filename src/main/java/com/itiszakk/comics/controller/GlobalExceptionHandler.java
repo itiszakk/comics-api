@@ -1,9 +1,6 @@
 package com.itiszakk.comics.controller;
 
-import com.itiszakk.comics.exception.CharacterAlreadyExistsException;
-import com.itiszakk.comics.exception.CharacterDTOException;
-import com.itiszakk.comics.exception.CharacterNotFoundException;
-import com.itiszakk.comics.exception.RequestParameterValueException;
+import com.itiszakk.comics.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -35,6 +32,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = RequestParameterValueException.class)
     public ResponseEntity<ErrorResponse> requestParameterValueExceptionHandler(RequestParameterValueException e) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse(HttpStatus.BAD_REQUEST, e.getMessage()));
+    }
+
+    @ExceptionHandler(value = CharacterFieldReferenceException.class)
+    public ResponseEntity<ErrorResponse> characterFieldReferenceExceptionHandler(CharacterFieldReferenceException e) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorResponse(HttpStatus.BAD_REQUEST, e.getMessage()));
