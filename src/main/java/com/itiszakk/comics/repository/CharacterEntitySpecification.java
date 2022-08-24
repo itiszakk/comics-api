@@ -11,14 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CharacterEntitySpecification implements Specification<CharacterEntity> {
-    private List<SearchCriteria> criteriaList;
+    private final List<SearchCriteria> criteriaList;
 
-    public CharacterEntitySpecification() {
-        this.criteriaList = new ArrayList<>();
-    }
-
-    public void add(SearchCriteria criteria) {
-        criteriaList.add(criteria);
+    public CharacterEntitySpecification(List<SearchCriteria> criteriaList) {
+        this.criteriaList = criteriaList;
     }
 
     @Override
