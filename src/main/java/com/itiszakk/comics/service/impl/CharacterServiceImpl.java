@@ -7,6 +7,7 @@ import com.itiszakk.comics.repository.SearchCriteria;
 import com.itiszakk.comics.service.CharacterMapper;
 import com.itiszakk.comics.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,19 +37,13 @@ public class CharacterServiceImpl implements CharacterService {
     }
 
     @Override
-    public List<Character> getAll() {
-        return mapper.toDTOList(repository.findAll());
+    public List<Character> getAllByCriteriaList(List<SearchCriteria> criteriaList) {
+        return mapper.toDTOList(repository.findAll(new CharacterEntitySpecification(criteriaList)));
     }
 
     @Override
-    public List<Character> getAllByCriteriaList(List<SearchCriteria> criteriaList) {
-        CharacterEntitySpecification specification = new CharacterEntitySpecification();
-
-        for (SearchCriteria criteria : criteriaList) {
-            specification.add(criteria);
-        }
-
-        return mapper.toDTOList(repository.findAll(specification));
+    public List<Character> getAllByCriteriaList(List<SearchCriteria> criteriaList, Sort sort) {
+        return mapper.toDTOList(repository.findAll(new CharacterEntitySpecification(criteriaList), sort));
     }
 
     @Transactional
