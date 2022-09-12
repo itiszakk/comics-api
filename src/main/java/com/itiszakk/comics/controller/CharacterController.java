@@ -18,10 +18,10 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(ResourcePath.CHARACTER_PATH)
+@RequestMapping("${url.character}")
 public class CharacterController {
-
-    private static final String ALIGNMENT_PARAMETER = "alignment";
+    private static final String ALIGNMENT_REQUEST_PARAMETER = "alignment";
+    private static final String PUBLISHER_REQUEST_PARAMETER = "publisher";
 
     private static final String ALIGNMENT_ENTITY_FIELD = "alignment";
     private static final String PUBLISHER_ENTITY_FIELD = "publisher";
@@ -87,7 +87,7 @@ public class CharacterController {
         CharacterAlignment alignment = CharacterAlignment.getByType(alignmentType);
 
         if (alignment == null && alignmentType != null && alignmentType.length() > 0) {
-            throw new RequestParameterValueException(ALIGNMENT_PARAMETER, alignmentType);
+            throw new RequestParameterValueException(ALIGNMENT_REQUEST_PARAMETER, alignmentType);
         }
 
         return alignment;
@@ -97,7 +97,7 @@ public class CharacterController {
         ComicsPublisher publisher = ComicsPublisher.getByName(publisherName);
 
         if (publisher == null && publisherName != null && publisherName.length() > 0) {
-            throw new RequestParameterValueException(ALIGNMENT_PARAMETER, publisherName);
+            throw new RequestParameterValueException(PUBLISHER_REQUEST_PARAMETER, publisherName);
         }
 
         return publisher;
