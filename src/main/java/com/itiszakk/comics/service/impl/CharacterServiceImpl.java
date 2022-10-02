@@ -27,6 +27,16 @@ public class CharacterServiceImpl implements CharacterService {
     }
 
     @Override
+    public List<Character> getAll() {
+        return mapper.toDTOList(repository.findAll());
+    }
+
+    @Override
+    public List<Character> getAll(Sort sort) {
+        return mapper.toDTOList(repository.findAll(sort));
+    }
+
+    @Override
     public Optional<Character> getById(int id) {
         return repository.findById(id).map(mapper::toDTO);
     }

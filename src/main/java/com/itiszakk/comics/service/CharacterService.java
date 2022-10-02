@@ -10,6 +10,8 @@ import java.util.Optional;
 public interface CharacterService {
     Optional<Character> getById(int id);
     Optional<Character> getByCharacterNameAndRealName(String characterName, String realName);
+    List<Character> getAll();
+    List<Character> getAll(Sort sort);
     List<Character> getAllByCriteriaList(List<SearchCriteria> criteriaList);
     List<Character> getAllByCriteriaList(List<SearchCriteria> criteriaList, Sort sort);
     Character save(Character character);
