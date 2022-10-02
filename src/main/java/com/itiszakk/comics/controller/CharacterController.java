@@ -20,6 +20,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("${url.character}")
 public class CharacterController {
+
     private static final String ALIGNMENT_REQUEST_PARAMETER = "alignment";
     private static final String PUBLISHER_REQUEST_PARAMETER = "publisher";
 
@@ -45,6 +46,12 @@ public class CharacterController {
     public List<Character> getAllCharacters(RequestParameters parameters) {
         CharacterAlignment alignment = checkParameterAndReturnCharacterAlignment(parameters.getAlignment());
         ComicsPublisher publisher = checkParameterAndReturnComicsPublisher(parameters.getPublisher());
+
+        if (parameters.getAlignment() == null && parameters.getPublisher() == null && parameters.getStartsWith() == null) {
+            return (parameters.getSortBy() == null)
+                    ? service.getAll()
+                    : service.getAll(getSortOrThrowException(parameters.getSortBy()));
+        }
 
         List<SearchCriteria> criteriaList = List.of(
                 new SearchCriteria(ALIGNMENT_ENTITY_FIELD, SearchOperation.EQUAL, alignment),
