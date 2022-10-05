@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Characters</title>
+
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link th:rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body class="row container-100 justify-content-center">
+<header class="mb-5">
+    <nav class="navbar navbar-dark bg-dark justify-content-xxl-start justify-content-center py-2">
+        <a class="navbar-brand mx-xxl-3 mx-0" th:href="${controllerDomain}" th:text="${applicationName}"></a>
+    </nav>
+</header>
+<main class="w-75 mx-auto">
+    <div class="character-container row">
+        <div class="character-container-header mb-3">
+            <div class="row justify-content-xxl-start align-items-xxl-baseline align-items-center justify-content-center">
+                <div class="character-container-header-title col-auto pe-1">
+                    <h1>CHARACTERS</h1>
+                </div>
+                <div class="character-container-header-count col-auto ps-1">
+                    <h1 th:text="' (' + ${characters.size()} + ')'"></h1>
+                </div>
+            </div>
+        </div>
+        <div class="character-container-main">
+            <div class="character-browser-container row flex-xxl-row flex-column">
+                <div class="col-xxl-1 col-12 mb-xxl-0 mb-3">
+                    <div class="filters row text-xxl-start text-center">
+                        <div class="filters-header">
+                            <h2>FILTERS</h2>
+                        </div>
+                        <div class="filters-main">
+                            <div class="row">
+                                <div th:each="filter : ${filterValues.keySet()}">
+                                    <div class="row">
+                                        <p th:text="${filter}"></p>
+                                        <div>
+                                            <div class="row">
+                                                <p th:each="value : ${filterValues.get(filter)}" th:text="${value}"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-11 col-12">
+                    <div class="cards row justify-content-center">
+                        <div class="col-auto">
+                            <div class="row flex-xxl-row flex-column justify-content-start gap-3">
+                                <div class="col-xxl-auto col-12" th:each="character : ${characters}">
+                                    <div class="card align-items-xxl-start align-items-center border-0">
+                                        <img class="card-img-top rounded-0" th:src="${character.getImageURL()}" alt="Image is missing">
+                                        <div class="card-body">
+                                            <p class="card-title" th:text="${character.getCharacterName().toUpperCase()}"></p>
+                                            <a class="stretched-link" th:href="${controllerDomain} + '/' + ${character.getId()}"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script th:src="@{/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${character.getCharacterName()} + ' (' + ${character.getRealName() + ')'}"></title>
+
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link th:rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header class="mb-4">
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="${controllerDomain}" th:text="${applicationName}"></a>
+        </div>
+    </nav>
+</header>
+<main>
+    <h1 th:text="${character.getCharacterName()} + ' (' + ${character.getRealName() + ')'}"></h1>
+    <p th:text="${character.getDescription()}"></p>
+</main>
+
+<script th:src="@{/js/bootstrap.min.js}"></script>
+
+</body>
+</html>
