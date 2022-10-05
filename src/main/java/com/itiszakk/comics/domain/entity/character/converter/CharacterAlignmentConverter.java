@@ -1,7 +1,7 @@
-package com.itiszakk.comics.domain.converter;
+package com.itiszakk.comics.domain.entity.character.converter;
 
-import com.itiszakk.comics.domain.CharacterAlignment;
-import com.itiszakk.comics.exception.ConverterException;
+import com.itiszakk.comics.domain.entity.character.CharacterAlignment;
+import com.itiszakk.comics.exception.CharacterConverterException;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
@@ -18,6 +18,6 @@ public class CharacterAlignmentConverter implements AttributeConverter<Character
     @Override
     public CharacterAlignment convertToEntityAttribute(String type) {
         return Optional.ofNullable(CharacterAlignment.getByType(type))
-                .orElseThrow(() -> new ConverterException(CharacterAlignmentConverter.class, type));
+                .orElseThrow(() -> new CharacterConverterException(CharacterAlignmentConverter.class, type));
     }
 }

@@ -1,7 +1,7 @@
-package com.itiszakk.comics.domain.converter;
+package com.itiszakk.comics.domain.entity.character.converter;
 
-import com.itiszakk.comics.domain.ComicsPublisher;
-import com.itiszakk.comics.exception.ConverterException;
+import com.itiszakk.comics.domain.entity.character.ComicsPublisher;
+import com.itiszakk.comics.exception.CharacterConverterException;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
@@ -17,6 +17,6 @@ public class ComicsPublisherConverter implements AttributeConverter<ComicsPublis
     @Override
     public ComicsPublisher convertToEntityAttribute(String name) {
         return Optional.ofNullable(ComicsPublisher.getByName(name))
-                .orElseThrow(() -> new ConverterException(ComicsPublisher.class, name));
+                .orElseThrow(() -> new CharacterConverterException(ComicsPublisher.class, name));
     }
 }

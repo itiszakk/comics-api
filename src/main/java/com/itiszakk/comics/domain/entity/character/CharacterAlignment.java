@@ -1,9 +1,9 @@
-package com.itiszakk.comics.domain;
+package com.itiszakk.comics.domain.entity.character;
 
 import lombok.Getter;
 
 import java.util.Arrays;
-import java.util.Optional;
+import java.util.List;
 
 @Getter
 public enum CharacterAlignment {
@@ -22,5 +22,9 @@ public enum CharacterAlignment {
                 .filter(alignment -> alignment.getType().equals(type))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public static List<String> getTypeList() {
+        return Arrays.stream(values()).map(value -> value.type).toList();
     }
 }

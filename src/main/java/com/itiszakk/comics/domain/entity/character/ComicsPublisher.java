@@ -1,9 +1,9 @@
-package com.itiszakk.comics.domain;
+package com.itiszakk.comics.domain.entity.character;
 
 import lombok.Getter;
 
 import java.util.Arrays;
-import java.util.Optional;
+import java.util.List;
 
 @Getter
 public enum ComicsPublisher {
@@ -21,5 +21,9 @@ public enum ComicsPublisher {
                 .filter(publisher -> publisher.getName().equals(name))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public static List<String> getNameList() {
+        return Arrays.stream(values()).map(value -> value.name).toList();
     }
 }

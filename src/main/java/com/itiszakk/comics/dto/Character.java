@@ -1,12 +1,13 @@
-package com.itiszakk.comics.domain;
+package com.itiszakk.comics.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.FieldNameConstants;
 
-@Builder
 @Data
-@AllArgsConstructor
+@Builder
+@FieldNameConstants
 public class Character {
     private int id;
     private String characterName;

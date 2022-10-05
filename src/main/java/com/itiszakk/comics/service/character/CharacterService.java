@@ -1,7 +1,7 @@
-package com.itiszakk.comics.service;
+package com.itiszakk.comics.service.character;
 
-import com.itiszakk.comics.domain.Character;
-import com.itiszakk.comics.repository.SearchCriteria;
+import com.itiszakk.comics.domain.repository.Filter;
+import com.itiszakk.comics.dto.Character;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
@@ -12,8 +12,8 @@ public interface CharacterService {
     Optional<Character> getByCharacterNameAndRealName(String characterName, String realName);
     List<Character> getAll();
     List<Character> getAll(Sort sort);
-    List<Character> getAllByCriteriaList(List<SearchCriteria> criteriaList);
-    List<Character> getAllByCriteriaList(List<SearchCriteria> criteriaList, Sort sort);
+    List<Character> getAll(List<Filter> filterList);
+    List<Character> getAll(List<Filter> filterList, Sort sort);
     Character save(Character character);
     void deleteById(int id);
     void deleteAll();

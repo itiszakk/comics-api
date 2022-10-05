@@ -1,15 +1,15 @@
-package com.itiszakk.comics.domain;
+package com.itiszakk.comics.domain.entity.character;
 
 import lombok.*;
+import lombok.experimental.FieldNameConstants;
 
 import javax.persistence.*;
 
+@Data
 @Builder
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@FieldNameConstants
 @Entity
 @Table(schema = "comics", name = "character")
 public class CharacterEntity {

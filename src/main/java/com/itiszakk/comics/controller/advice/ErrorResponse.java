@@ -1,4 +1,4 @@
-package com.itiszakk.comics.controller;
+package com.itiszakk.comics.controller.advice;
 
 import lombok.Getter;
 import lombok.Setter;

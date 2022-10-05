@@ -1,13 +1,17 @@
-package com.itiszakk.comics.controller;
+package com.itiszakk.comics.controller.advice;
 
 import com.itiszakk.comics.exception.*;
+import com.itiszakk.comics.exception.CharacterAlreadyExistsException;
+import com.itiszakk.comics.exception.CharacterDTOException;
+import com.itiszakk.comics.exception.CharacterFieldReferenceException;
+import com.itiszakk.comics.exception.CharacterNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+public class RestExceptionHandler {
 
     @ExceptionHandler(value = CharacterNotFoundException.class)
     public ResponseEntity<ErrorResponse> characterNotFoundExceptionHandler(CharacterNotFoundException e) {

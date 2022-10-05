@@ -1,9 +1,9 @@
-package com.itiszakk.comics.service;
+package com.itiszakk.comics.service.character;
 
-import com.itiszakk.comics.domain.Character;
-import com.itiszakk.comics.domain.CharacterAlignment;
-import com.itiszakk.comics.domain.CharacterEntity;
-import com.itiszakk.comics.domain.ComicsPublisher;
+import com.itiszakk.comics.dto.Character;
+import com.itiszakk.comics.domain.entity.character.CharacterAlignment;
+import com.itiszakk.comics.domain.entity.character.CharacterEntity;
+import com.itiszakk.comics.domain.entity.character.ComicsPublisher;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -22,9 +22,6 @@ public interface CharacterMapper {
     @Mapping(source = "alignment", target = "alignment", qualifiedByName = "getAlignmentByType")
     @Mapping(source = "publisher", target = "publisher", qualifiedByName = "getPublisherByName")
     CharacterEntity toEntity(Character dto);
-
-    List<Character> toDTOList(List<CharacterEntity> entityList);
-    List<CharacterEntity> toEntityList(List<Character> dtoList);
 
     @Named("getAlignmentType")
     static String getAlignmentType(CharacterAlignment alignment) {

@@ -1,6 +1,6 @@
-package com.itiszakk.comics.repository;
+package com.itiszakk.comics.domain.repository.character;
 
-import com.itiszakk.comics.domain.CharacterEntity;
+import com.itiszakk.comics.domain.entity.character.CharacterEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
