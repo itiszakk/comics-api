@@ -1,8 +1,9 @@
 # ComicsAPI
-Simple REST API for comics characters
+Simple REST API and HTML views for comics characters
 ## Goals
 * Develop a Spring Boot application with PostreSQL database
 * Use Flyway to manage the database schema
+* Create HTML templates with Thymeleaf and Bootstrap
 * Use Docker and Docker Compose to deploy database and application in separate containers
 ## Development
 1. Run PostgreSQL database as Docker container:
