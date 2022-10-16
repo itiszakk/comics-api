@@ -1,8 +1,6 @@
 package com.itiszakk.comics.controller.rest;
 
 import com.itiszakk.comics.controller.ControllerUtils;
-import com.itiszakk.comics.domain.entity.character.CharacterAlignment;
-import com.itiszakk.comics.domain.entity.character.ComicsPublisher;
 import com.itiszakk.comics.domain.repository.Filter;
 import com.itiszakk.comics.domain.repository.SearchOperation;
 import com.itiszakk.comics.dto.Character;

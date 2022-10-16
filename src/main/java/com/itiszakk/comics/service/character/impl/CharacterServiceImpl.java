@@ -100,23 +100,25 @@ public class CharacterServiceImpl implements CharacterService {
         return specification;
     }
 
-    private Specification<CharacterEntity> getSpecification(Filter filter) {
-        if (filter.hasNullFields()) {
+    private Specification<CharacterEntity> getSpecification(Filter entityFilter) {
+        if (entityFilter.getKey() == null || (entityFilter.getValue() == null && entityFilter.getValues() == null)) {
             return null;
         }
 
-        switch (filter.getOperation()) {
+        switch (entityFilter.getOperation()) {
             case EQUAL -> {
                 return (root, query, builder) ->
-                        builder.equal(root.get(filter.getKey()), filter.getValue());
+                        builder.equal(root.get(entityFilter.getKey()), entityFilter.getValue());
             }
             case LIKE -> {
                 return (root, query, builder) ->
-                        builder.like(root.get(filter.getKey()), "%" + filter.getValue() + "%");
+                        builder.like(
+                                builder.lower(root.get(entityFilter.getKey())),
+                                "%" + entityFilter.getValue().toString().toLowerCase() + "%");
             }
             case IN -> {
                 return (root, query, builder) ->
-                        builder.in(root.get(filter.getKey())).value(filter.getValue());
+                        builder.in(root.get(entityFilter.getKey())).value(entityFilter.getValues());
             }
         }
 
