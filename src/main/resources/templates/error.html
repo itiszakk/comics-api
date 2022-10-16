@@ -4,24 +4,26 @@
     <meta charset="UTF-8">
     <title>Page not found</title>
 
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap-icons.css}">
     <link th:rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link th:rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
-<body class="d-flex flex-column justify-content-start align-items-stretch vw-100 vh-100">
 
-<!-- Header -->
-<header class="flex-grow-0 flex-shrink-1">
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand mx-3" th:href="${controllerDomain}" th:text="${applicationName}"></a>
-    </nav>
-</header>
+<body class="w-100 vh-100">
 
-<!-- Main -->
-<main class="error-container d-flex justify-content-center align-items-center flex-grow-1 flex-shrink-1">
-    <h1>404 PAGE NOT FOUND</h1>
-</main>
+<div class="d-flex flex-column h-100">
+    <div class="flex-grow-0">
+        <nav class="navbar justify-content-xxl-start justify-content-center shadow-sm">
+            <a class="navbar-brand ms-xxl-5 m-0" th:href="${controllerDomain}" th:text="${applicationName}"></a>
+        </nav>
+    </div>
+    <div class="error-container d-flex flex-grow-1 justify-content-center align-items-center">
+        <h1>404 PAGE NOT FOUND</h1>
+    </div>
+</div>
 
 <script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/scripts.js}"></script>
 
 </body>
 </html>

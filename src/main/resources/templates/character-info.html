@@ -2,26 +2,67 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${character.getCharacterName()} + ' (' + ${character.getRealName() + ')'}"></title>
+    <title th:text="${character.getCharacterName()}"></title>
 
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap-icons.css}">
     <link th:rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link th:rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
+
 <body>
-<header class="mb-4">
-    <!-- Navbar -->
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" th:href="${controllerDomain}" th:text="${applicationName}"></a>
+
+<nav class="navbar justify-content-xxl-start justify-content-center shadow-sm mb-5">
+    <a class="navbar-brand ms-xxl-5 m-0" th:href="${controllerDomain}" th:text="${applicationName}"></a>
+</nav>
+
+<div class="container">
+    <div class="character-info-header row">
+        <h1 class="m-0">
+            <span class="character-name" th:text="${character.getCharacterName()}"></span>
+            <span class="real-name" th:if="${character.getRealName() != null}" th:text="' (' + ${character.getRealName()} + ')'"></span>
+        </h1>
+    </div>
+    <hr class="my-3">
+    <div class="character-info-main row">
+        <div class="col-xxl-8 col-12">
+            <div class="character-description">
+                <p th:text="${character.getDescription()}"></p>
+            </div>
         </div>
-    </nav>
-</header>
-<main>
-    <h1 th:text="${character.getCharacterName()} + ' (' + ${character.getRealName() + ')'}"></h1>
-    <p th:text="${character.getDescription()}"></p>
-</main>
+        <div class="col-xxl-4 col-12">
+            <div class="row justify-content-center">
+                <div class="character-info-card card rounded-0 border-0">
+                    <img class="card-img-top rounded-0 shadow" th:src="${character.getImageURL()}" alt="Image is missing">
+                    <div class="card-body">
+                        <table class="table table-sm table-bordered">
+                            <tbody>
+                            <tr>
+                                <td class="info-key">Character name</td>
+                                <td class="info-value" th:text="${character.getCharacterName()}"></td>
+                            </tr>
+                            <tr th:if="${character.getRealName() != null}">
+                                <td class="info-key">Real name</td>
+                                <td class="info-value" th:text="${character.getRealName()}"></td>
+                            </tr>
+                            <tr>
+                                <td class="info-key">Alignment</td>
+                                <td class="info-value" th:text="${character.getAlignment()}"></td>
+                            </tr>
+                            <tr>
+                                <td class="info-key">Publisher</td>
+                                <td class="info-value" th:text="${character.getPublisher()}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<script th:src="@{/js/jquery-3.6.1.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
-
+<script th:src="@{/js/scripts.js}"></script>
 </body>
 </html>

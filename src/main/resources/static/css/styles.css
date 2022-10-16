@@ -14,67 +14,213 @@
     font-style: normal;
 }
 
-/* General styles */
-
-* {
-    margin: 0 !important;
-    padding: 0 !important;
-    border: 0 !important;
+@font-face {
+    font-family: 'NotoSans';
+    src: url("../fonts/NotoSans-Regular.ttf");
+    font-weight: normal;
+    font-style: normal;
 }
 
-.navbar-brand {
+@font-face {
+    font-family: 'NotoSans';
+    src: url("../fonts/NotoSans-Bold.ttf");
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* General styles */
+
+:root {
+    --comics-color-dark: #2a282a;
+    --comics-color-dark-hover: #474649;
+    --comics-color-gray: #706e72;
+    --comics-color-light: #ffffff;
+}
+
+body {
+    background-color: var(--comics-color-light);
+    font-family: 'NotoSans', sans-serif;
+    font-weight: normal;
+    font-size: 1rem;
+    color: var(--comics-color-dark);
+}
+
+input {
+   appearance: none;
+}
+
+.navbar {
+    background-color: var(--comics-color-dark);
+}
+
+.navbar-brand, .navbar-brand:hover, .navbar-brand:active {
     font-family: 'Oswald', sans-serif;
     font-weight: bold;
     font-size: 1.75rem;
-    color: white;
+    color: var(--comics-color-light);
+}
+
+.card {
+    display: inline-block;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 
 /* characters.html styles */
 
-.character-container-header-title h1 {
-    font-family: 'Oswald', sans-serif;
-    font-weight: bold;
-    font-size: 2rem;
-}
-
-.character-container-header-count h1 {
-    font-family: 'Oswald', sans-serif;
-    font-weight: bold;
-    font-size: 2rem;
-    color: darkgray;
-}
-
-.filters h2{
+.character-browser-header h1 {
     font-family: 'Oswald', sans-serif;
     font-weight: bold;
     font-size: 1.5rem;
 }
 
-.filters p{
-    font-family: 'Oswald', sans-serif;
-    font-weight: normal;
-    font-size: 1rem;
+.character-browser-header .character-count {
+    color: var(--comics-color-gray);
 }
 
-.card {
-    width: 15rem;
-}
-
-.card-body p {
-    font-family: 'Oswald', sans-serif;
-    font-weight: normal;
-    font-size: 1rem;
-}
-
-.card-body p {
+.filters-header h1 {
     font-family: 'Oswald', sans-serif;
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 1.5rem;
+}
+
+.filter-key-button, .filter-value-button {
+    font-family: 'Oswald', sans-serif;
+    text-align: start;
+    text-transform: uppercase;
+    background: none;
+    border: 0;
+}
+
+.filter-search input {
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 0.3rem;
+}
+
+.filter-key-button {
+    font-weight: bold;
+}
+
+.filter-value-button label {
+    display:inline-block;
+    overflow: hidden;
+    user-select: none;
+    cursor: pointer;
+}
+
+.filters-apply input {
+    width: 10rem;
+    border: 0;
+    background-color: var(--comics-color-dark);
+    font-family: 'Oswald', sans-serif;
+    font-weight: bold;
+    color: var(--comics-color-light);
+}
+
+.filters-apply input:hover {
+    background-color: var(--comics-color-dark-hover);
+}
+
+.filters-apply input:active {
+    background-color: var(--comics-color-dark);
+}
+
+[data-bs-toggle="collapse"].collapsed .key-opened {
+    display: none;
+    visibility: hidden;
+}
+
+[data-bs-toggle="collapse"]:not(.collapsed) .key-closed {
+    display: none;
+    visibility: hidden;
+}
+
+input[type="radio"] ~ label .value-checked {
+    display: none;
+    visibility: hidden;
+}
+
+input[type="radio"]:checked ~ label .value-unchecked{
+    display: none;
+    visibility: hidden;
+}
+
+input[type="radio"]:checked ~ label .value-checked{
+    display: inline-block;
+    visibility: visible;
+}
+
+input[type="checkbox"] ~ label .value-checked {
+    display: none;
+    visibility: hidden;
+}
+
+input[type="checkbox"]:checked ~ label .value-unchecked{
+    display: none;
+    visibility: hidden;
+}
+
+input[type="checkbox"]:checked ~ label .value-checked{
+    display: inline-block;
+    visibility: visible;
+}
+
+.character-browser-card {
+    width: 250px;
+    height: 400px;
+}
+
+.character-browser-card .card-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: bold;
 }
 
 /* character-info.html styles */
 
+.character-info-header h1 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.character-name {
+    font-size: 1.75rem;
+}
+
+.real-name {
+    font-size: 1.25rem;
+    color: var(--comics-color-gray);
+}
+
+.character-description {
+    font-size: 1.15rem;
+}
+
+.character-info-card {
+    width: 350px;
+    height: 560px;
+}
+
+.character-info-card table tr {
+    font-family: NotoSans, sans-serif;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+}
+
+.character-info-card table .info-key {
+    font-weight: bold;
+}
+
 /* error.html styles */
+
 .error-container h1 {
     font-family: 'Oswald', sans-serif;
     font-weight: bold;

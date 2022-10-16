@@ -4,74 +4,128 @@
     <meta charset="UTF-8">
     <title>Characters</title>
 
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap-icons.css}">
     <link th:rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link th:rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 
-<body class="row container-100 justify-content-center">
-<header class="mb-5">
-    <nav class="navbar navbar-dark bg-dark justify-content-xxl-start justify-content-center py-2">
-        <a class="navbar-brand mx-xxl-3 mx-0" th:href="${controllerDomain}" th:text="${applicationName}"></a>
-    </nav>
-</header>
-<main class="w-75 mx-auto">
-    <div class="character-container row">
-        <div class="character-container-header mb-3">
-            <div class="row justify-content-xxl-start align-items-xxl-baseline align-items-center justify-content-center">
-                <div class="character-container-header-title col-auto pe-1">
-                    <h1>CHARACTERS</h1>
-                </div>
-                <div class="character-container-header-count col-auto ps-1">
-                    <h1 th:text="' (' + ${characters.size()} + ')'"></h1>
-                </div>
+<body>
+
+<nav class="navbar justify-content-xxl-start justify-content-center shadow-sm mb-5">
+    <a class="navbar-brand ms-xxl-5 m-0" th:href="${controllerDomain}" th:text="${applicationName}"></a>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="filters col-xxl-2 col-12">
+            <div class="filters-header row mb-2">
+                <h1>FILTERS</h1>
             </div>
-        </div>
-        <div class="character-container-main">
-            <div class="character-browser-container row flex-xxl-row flex-column">
-                <div class="col-xxl-1 col-12 mb-xxl-0 mb-3">
-                    <div class="filters row text-xxl-start text-center">
-                        <div class="filters-header">
-                            <h2>FILTERS</h2>
-                        </div>
-                        <div class="filters-main">
-                            <div class="row">
-                                <div th:each="filter : ${filterValues.keySet()}">
-                                    <div class="row">
-                                        <p th:text="${filter}"></p>
-                                        <div>
-                                            <div class="row">
-                                                <p th:each="value : ${filterValues.get(filter)}" th:text="${value}"></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <form class="row justify-content-center" name="filter" method="post" th:action="@{${controllerDomain}}" th:object="${filterForm}">
+                <div>
+                    <div class="filter-search">
+                        <input type="text" id="search" placeholder="Search character" th:field="*{nameStartsWith}"/>
+                        <hr class="mt-0 mb-3">
                     </div>
                 </div>
-                <div class="col-xxl-11 col-12">
-                    <div class="cards row justify-content-center">
-                        <div class="col-auto">
-                            <div class="row flex-xxl-row flex-column justify-content-start gap-3">
-                                <div class="col-xxl-auto col-12" th:each="character : ${characters}">
-                                    <div class="card align-items-xxl-start align-items-center border-0">
-                                        <img class="card-img-top rounded-0" th:src="${character.getImageURL()}" alt="Image is missing">
-                                        <div class="card-body">
-                                            <p class="card-title" th:text="${character.getCharacterName().toUpperCase()}"></p>
-                                            <a class="stretched-link" th:href="${controllerDomain} + '/' + ${character.getId()}"></a>
-                                        </div>
-                                    </div>
-                                </div>
+                <div>
+                    <button type="button" class="filter-key-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapse-sort"}>
+                        <i class="key-closed bi bi-plus"></i>
+                        <i class="key-opened bi bi-dash"></i>
+                        <span>Sort</span>
+                    </button>
+                    <hr class="my-3">
+                    <div class="filter-collapse collapse" id="collapse-sort">
+                        <div>
+                            <div class="filter-value-button">
+                                <input type="radio" id="radio-0" th:field="*{sortField}" th:value="${idField}"/>
+                                <label for="radio-0">
+                                    <i class="value-unchecked bi bi-circle"></i>
+                                    <i class="value-checked bi bi-check-circle"></i>
+                                    <span>Oldest to Newest</span>
+                                </label>
                             </div>
+                            <div class="filter-value-button">
+                                <input type="radio" id="radio-1" th:field="*{sortField}" th:value="${characterNameField}"/>
+                                <label for="radio-1">
+                                    <i class="value-unchecked bi bi-circle"></i>
+                                    <i class="value-checked bi bi-check-circle"></i>
+                                    <span>Character Name</span>
+                                </label>
+                            </div>
+                        </div>
+                        <hr class="my-3">
+                    </div>
+                </div>
+                <div>
+                    <button type="button" class="filter-key-button collapsed" data-bs-toggle="collapse" th:attr="data-bs-target='#collapse-' + ${alignmentField}">
+                        <i class="key-closed bi bi-plus"></i>
+                        <i class="key-opened bi bi-dash"></i>
+                        <span th:text="${alignmentField}"></span>
+                    </button>
+                    <hr class="my-3">
+                    <div class="filter-collapse collapse" th:id="'collapse-' + ${alignmentField}">
+                        <div th:each="alignment : ${alignmentTypeList}">
+                            <div class="filter-value-button">
+                                <input type="checkbox" th:field="*{alignments}" th:value="${alignment}"/>
+                                <label th:for="${#ids.prev('alignments')}">
+                                    <i class="value-unchecked bi bi-square"></i>
+                                    <i class="value-checked bi bi-check-square"></i>
+                                    <span th:text="${alignment}"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <hr class="my-3">
+                    </div>
+                </div>
+                <div>
+                    <button type="button" class="filter-key-button collapsed" data-bs-toggle="collapse" th:attr="data-bs-target='#collapse-' + ${publisherField}">
+                        <i class="key-closed bi bi-plus"></i>
+                        <i class="key-opened bi bi-dash"></i>
+                        <span th:text="${publisherField}"></span>
+                    </button>
+                    <hr class="my-3">
+                    <div class="filter-collapse collapse" th:id="'collapse-' + ${publisherField}">
+                        <div th:each="publisher : ${publisherNameList}">
+                            <div class="filter-value-button">
+                                <input type="checkbox" th:field="*{publishers}" th:value="${publisher}"/>
+                                <label th:for="${#ids.prev('publishers')}">
+                                    <i class="value-unchecked bi bi-square"></i>
+                                    <i class="value-checked bi bi-check-square"></i>
+                                    <span th:text="${publisher}"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <hr class="my-3">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="cards col-xxl-10 col-12">
+            <div class="character-browser-header row m-0 mb-2">
+                <h1 class="text-xxl-start text-center">
+                    CHARACTERS
+                    <span class="character-count" th:text="' (' + ${characterList.size()} + ')'"></span>
+                </h1>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-auto mb-3" th:each="character : ${characterList}">
+                    <div class="character-browser-card card rounded-0 border-0">
+                        <img class="card-img-top rounded-0 shadow" th:src="${character.getImageURL()}" alt="Image is missing">
+                        <div class="card-body p-0">
+                            <p class="card-title" th:text="${character.getCharacterName().toUpperCase()}"></p>
+                            <a class="stretched-link" th:href="${controllerDomain} + '/' + ${character.getId()}"></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</main>
+</div>
 
+<script th:src="@{/js/jquery-3.6.1.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
-
+<script th:src="@{/js/scripts.js}"></script>
 </body>
 </html>
