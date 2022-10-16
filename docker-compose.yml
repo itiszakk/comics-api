@@ -12,8 +12,8 @@ services:
       - '5432:5432'
   application:
     container_name: comics-application
-    image: comics-application:latest
     build: ./
+    image: itiszakk/comics-api:latest
     restart: always
     ports:
       - '8080:8080'
