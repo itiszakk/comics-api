@@ -1,8 +1,7 @@
-version: '3.8'
 services:
   database:
     container_name: comics-database
-    image: postgres:15beta3-alpine
+    image: postgres:15
     restart: always
     environment:
       POSTGRES_USER: comics_user
