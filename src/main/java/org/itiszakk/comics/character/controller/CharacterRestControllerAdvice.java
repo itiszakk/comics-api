@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class CharacterControllerAdvice {
+public class CharacterRestControllerAdvice {
 
     @ExceptionHandler(value = CharacterNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)

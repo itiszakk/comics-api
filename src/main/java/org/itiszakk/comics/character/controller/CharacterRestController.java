@@ -20,13 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/characters")
-public class CharacterController {
+@RequestMapping(CharacterRestControllerConstants.CHARACTERS_PATH)
+public class CharacterRestController {
 
     private final CharacterService characterService;
 
     @Autowired
-    public CharacterController(CharacterService characterService) {
+    public CharacterRestController(CharacterService characterService) {
         this.characterService = characterService;
     }
 
