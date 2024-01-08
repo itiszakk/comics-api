@@ -2,25 +2,28 @@ package org.itiszakk.comics.character.util;
 
 import org.itiszakk.comics.character.CharacterAlignment;
 import org.itiszakk.comics.character.converter.CharacterAlignmentConverter;
-import org.itiszakk.comics.exception.CharacterConverterException;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-import java.util.Optional;
 
+@Component
 @Converter(autoApply = true)
 public class CharacterAlignmentAttributeConverter implements AttributeConverter<CharacterAlignment, String> {
 
-    private CharacterAlignmentConverter characterAlignmentConverter;
+    private final CharacterAlignmentConverter alignmentConverter;
+
+    public CharacterAlignmentAttributeConverter(CharacterAlignmentConverter alignmentConverter) {
+        this.alignmentConverter = alignmentConverter;
+    }
 
     @Override
     public String convertToDatabaseColumn(CharacterAlignment alignment) {
-        return (alignment == null) ? null : alignment.getType();
+        return alignmentConverter.convert(alignment);
     }
 
     @Override
     public CharacterAlignment convertToEntityAttribute(String type) {
-        return Optional.ofNullable(CharacterAlignment.from(type))
-                .orElseThrow(() -> new CharacterConverterException(CharacterAlignmentAttributeConverter.class, type));
+        return alignmentConverter.reverse().convert(type);
     }
 }

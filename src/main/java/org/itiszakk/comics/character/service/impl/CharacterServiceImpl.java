@@ -1,16 +1,17 @@
 package org.itiszakk.comics.character.service.impl;
 
-import org.apache.commons.lang3.StringUtils;
 import org.itiszakk.comics.character.Character;
 import org.itiszakk.comics.character.CharacterAlignment;
 import org.itiszakk.comics.character.ComicsPublisher;
 import org.itiszakk.comics.character.context.GetCharacterContext;
 import org.itiszakk.comics.character.converter.CharacterConverter;
 import org.itiszakk.comics.character.dto.CharacterDTO;
-import org.itiszakk.comics.character.dto.RequestParameters;
 import org.itiszakk.comics.character.repository.CharacterRepository;
 import org.itiszakk.comics.character.service.CharacterService;
-import org.itiszakk.comics.exception.*;
+import org.itiszakk.comics.exception.CharacterAlreadyExistsException;
+import org.itiszakk.comics.exception.CharacterDTOException;
+import org.itiszakk.comics.exception.CharacterFieldReferenceException;
+import org.itiszakk.comics.exception.CharacterNotFoundException;
 import org.itiszakk.comics.filter.Filter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -18,7 +19,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.util.ClassTypeInformation;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.yaml.snakeyaml.util.ArrayUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,16 +27,18 @@ import java.util.Optional;
 public class CharacterServiceImpl implements CharacterService {
 
     private final CharacterRepository repository;
+    private final CharacterConverter converter;
 
     @Autowired
-    public CharacterServiceImpl(CharacterRepository repository) {
+    public CharacterServiceImpl(CharacterRepository repository, CharacterConverter converter) {
         this.repository = repository;
+        this.converter = converter;
     }
 
     @Override
     public List<CharacterDTO> get(GetCharacterContext ctx) {
          return getByContext(ctx).stream()
-                 .map(CharacterConverter::convert)
+                 .map(converter::convert)
                  .toList();
     }
 
@@ -63,7 +65,7 @@ public class CharacterServiceImpl implements CharacterService {
     @Override
     public CharacterDTO get(int id) {
         return repository.findById(id)
-                .map(CharacterConverter::convert)
+                .map(converter::convert)
                 .orElseThrow(() -> new CharacterNotFoundException(id));
     }
 
@@ -71,16 +73,16 @@ public class CharacterServiceImpl implements CharacterService {
     @Override
     public CharacterDTO save(CharacterDTO characterDTO) {
         checkCharacterBeforeSave(characterDTO);
-        Character saved = repository.save(CharacterConverter.convert(characterDTO));
-        return CharacterConverter.convert(saved);
+        Character entity = converter.reverse().convert(characterDTO);
+        return converter.convert(repository.save(entity));
     }
 
     @Transactional
     @Override
     public CharacterDTO update(CharacterDTO characterDTO) {
         checkCharacterBeforeUpdate(characterDTO);
-        Character saved = repository.save(CharacterConverter.convert(characterDTO));
-        return CharacterConverter.convert(saved);
+        Character entity = converter.reverse().convert(characterDTO);
+        return converter.convert(repository.save(entity));
     }
 
     @Transactional
