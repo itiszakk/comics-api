@@ -1,8 +1,6 @@
 package org.itiszakk.comics.character.service.impl;
 
 import org.itiszakk.comics.character.Character;
-import org.itiszakk.comics.character.CharacterAlignment;
-import org.itiszakk.comics.character.ComicsPublisher;
 import org.itiszakk.comics.character.context.GetCharacterContext;
 import org.itiszakk.comics.character.converter.CharacterConverter;
 import org.itiszakk.comics.character.dto.CharacterDTO;
@@ -10,13 +8,10 @@ import org.itiszakk.comics.character.repository.CharacterRepository;
 import org.itiszakk.comics.character.service.CharacterService;
 import org.itiszakk.comics.exception.CharacterAlreadyExistsException;
 import org.itiszakk.comics.exception.CharacterDTOException;
-import org.itiszakk.comics.exception.CharacterFieldReferenceException;
 import org.itiszakk.comics.exception.CharacterNotFoundException;
 import org.itiszakk.comics.filter.Filter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.util.ClassTypeInformation;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +31,13 @@ public class CharacterServiceImpl implements CharacterService {
     }
 
     @Override
+    public CharacterDTO get(int id) {
+        return repository.findById(id)
+                .map(converter::convert)
+                .orElseThrow(() -> new CharacterNotFoundException(id));
+    }
+
+    @Override
     public List<CharacterDTO> get(GetCharacterContext ctx) {
          return getByContext(ctx).stream()
                  .map(converter::convert)
@@ -47,26 +49,17 @@ public class CharacterServiceImpl implements CharacterService {
             Specification<Character> specification = getSpecification(ctx.getFilters());
 
             if (ctx.hasSort()) {
-                Sort sort = getSort(ctx.getSortBy());
-                return repository.findAll(specification, sort);
+                return repository.findAll(specification, ctx.getSort());
             }
 
             return repository.findAll(specification);
         }
 
         if (ctx.hasSort()) {
-            Sort sort = getSort(ctx.getSortBy());
-            return repository.findAll(sort);
+            return repository.findAll(ctx.getSort());
         }
 
         return repository.findAll();
-    }
-
-    @Override
-    public CharacterDTO get(int id) {
-        return repository.findById(id)
-                .map(converter::convert)
-                .orElseThrow(() -> new CharacterNotFoundException(id));
     }
 
     @Transactional
@@ -95,14 +88,6 @@ public class CharacterServiceImpl implements CharacterService {
     @Override
     public void deleteAll() {
         repository.deleteAll();
-    }
-
-    private Sort getSort(String sortField) {
-        if (ClassTypeInformation.from(Character.class).getProperty(sortField) == null) {
-            throw new CharacterFieldReferenceException(sortField);
-        }
-
-        return Sort.by(sortField);
     }
 
     private void checkCharacterBeforeSave(CharacterDTO characterDTO) {
@@ -139,18 +124,10 @@ public class CharacterServiceImpl implements CharacterService {
 
         if (characterDTO.getAlignment() == null) {
             throw new CharacterDTOException("Character alignment is missing");
-        } else {
-            if (CharacterAlignment.from(characterDTO.getAlignment()) == null) {
-                throw new CharacterDTOException("Character alignment is unsupported");
-            }
         }
 
         if (characterDTO.getPublisher() == null) {
             throw new CharacterDTOException("Comics publisher is missing");
-        } else {
-            if (ComicsPublisher.from(characterDTO.getPublisher()) == null) {
-                throw new CharacterDTOException("Comics publisher is unsupported");
-            }
         }
     }
 
@@ -164,15 +141,11 @@ public class CharacterServiceImpl implements CharacterService {
         }
     }
 
-    private Specification<Character> getSpecification(List<Filter> dtoFilterList) {
-        List<Filter> entityFilterList = dtoFilterList.stream()
-                .map(this::toEntityFilter)
-                .toList();
+    private Specification<Character> getSpecification(List<Filter> filters) {
+        Specification<Character> specification = Specification.where(getSpecification((filters.get(0))));
 
-        Specification<Character> specification = Specification.where(getSpecification((entityFilterList.get(0))));
-
-        for (int i = 1; i < entityFilterList.size(); i++) {
-            specification = specification.and(getSpecification(entityFilterList.get(i)));
+        for (int i = 1; i < filters.size(); i++) {
+            specification = specification.and(getSpecification(filters.get(i)));
         }
 
         return specification;
@@ -197,35 +170,5 @@ public class CharacterServiceImpl implements CharacterService {
         }
 
         return null;
-    }
-
-    private Filter toEntityFilter(Filter filter) {
-        if (filter == null) {
-            return null;
-        }
-
-        return Filter.builder()
-                .key(filter.getKey())
-                .operation(filter.getOperation())
-                .value(convertFilterValue(filter))
-                .build();
-    }
-
-    private Object convertFilterValue(Filter filter) {
-        if (filter.getValue() == null) {
-            return null;
-        }
-
-        String value = filter.getValue().toString();
-
-        if (filter.getKey().equals(Character.Fields.alignment)) {
-            return CharacterAlignment.from(value);
-        }
-
-        if (filter.getKey().equals(Character.Fields.publisher)) {
-            return ComicsPublisher.from(value);
-        }
-
-        return filter.getValue();
     }
 }

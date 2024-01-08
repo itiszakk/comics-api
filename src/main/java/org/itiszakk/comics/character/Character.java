@@ -1,9 +1,11 @@
 package org.itiszakk.comics.character;
 
-import lombok.*;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldNameConstants;
-
-import javax.persistence.*;
 
 @Data
 @Builder

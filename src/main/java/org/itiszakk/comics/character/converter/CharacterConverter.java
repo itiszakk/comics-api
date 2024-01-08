@@ -8,15 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class CharacterConverter implements Converter<Character, CharacterDTO> {
 
-    private final CharacterAlignmentConverter alignmentConverter;
-    public final ComicsPublisherConverter publisherConverter;
-
-    public CharacterConverter(CharacterAlignmentConverter alignmentConverter,
-                              ComicsPublisherConverter publisherConverter) {
-        this.alignmentConverter = alignmentConverter;
-        this.publisherConverter = publisherConverter;
-    }
-
     @Override
     public CharacterDTO convert(Character source) {
         if (source == null) {
@@ -27,8 +18,8 @@ public class CharacterConverter implements Converter<Character, CharacterDTO> {
                 .id(source.getId())
                 .characterName(source.getCharacterName())
                 .realName(source.getRealName())
-                .alignment(alignmentConverter.convert(source.getAlignment()))
-                .publisher(publisherConverter.convert(source.getPublisher()))
+                .alignment(source.getAlignment())
+                .publisher(source.getPublisher())
                 .description(source.getDescription())
                 .imageUrl(source.getImageUrl())
                 .build();
@@ -47,8 +38,8 @@ public class CharacterConverter implements Converter<Character, CharacterDTO> {
                         .id(source.getId())
                         .characterName(source.getCharacterName())
                         .realName(source.getRealName())
-                        .alignment(alignmentConverter.reverse().convert(source.getAlignment()))
-                        .publisher(publisherConverter.reverse().convert(source.getPublisher()))
+                        .alignment(source.getAlignment())
+                        .publisher(source.getPublisher())
                         .description(source.getDescription())
                         .imageUrl(source.getImageUrl())
                         .build();

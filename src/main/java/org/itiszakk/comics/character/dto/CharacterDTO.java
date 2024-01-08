@@ -13,14 +13,8 @@ public class CharacterDTO {
     private int id;
     private String characterName;
     private String realName;
-    /**
-     * String representation of {@link CharacterAlignment}
-     */
-    private String alignment;
-    /**
-     * String representation of {@link ComicsPublisher}
-     */
-    private String publisher;
+    private CharacterAlignment alignment;
+    private ComicsPublisher publisher;
     private String description;
     private String imageUrl;
 }
