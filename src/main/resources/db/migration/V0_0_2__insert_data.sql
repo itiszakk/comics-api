@@ -247,7 +247,7 @@ INSERT INTO character VALUES
      'hero',
      'marvel',
      'After being bombarded with a massive dose of gamma radiation while saving a young man''s life during an experimental bomb testing, Dr. Robert Bruce Banner was transformed into the Incredible Hulk: a green behemoth who is the living personification of rage and pure physical strength.',
-     'https://upload.wikimedia.org/wikipedia/ru/c/cc/Hulk_Marvel.jpg'),
+     'https://i.pinimg.com/736x/69/72/d6/6972d67363d601e637d4751412414b86.jpg'),
 
     (DEFAULT,
      'Doctor Strange',
@@ -263,7 +263,7 @@ INSERT INTO character VALUES
      'antihero',
      'marvel',
      'As a child, Matt Murdock was blinded by radioactive waste while trying to save an elderly stranger about to get hit by a truck carrying the dangerous material. In turn, his other senses were heightened to superhuman sharpness and he gained a form of "radar sense". By day, he is a successful trial lawyer; but by night, he guards Hell''s Kitchen as Daredevil: the Man Without Fear.',
-     'https://snappi-wpengine.netdna-ssl.com/wp-content/uploads/2020/02/EQHuvobWAAA9c52-1011x1536.jpg'),
+     'https://i.pinimg.com/originals/b9/6c/62/b96c6225701101a79cc6818489c85ccc.jpg'),
 
     (DEFAULT,
      'Doctor Doom',

@@ -24,12 +24,12 @@
             <form class="row justify-content-center" name="filter" method="post" th:action="@{${controllerDomain}}" th:object="${filterForm}">
                 <div>
                     <div class="filter-search">
-                        <input type="text" id="search" placeholder="Search character" th:field="*{nameStartsWith}"/>
+                        <input type="text" id="search" placeholder="Search characterDTO" th:field="*{nameStartsWith}"/>
                         <hr class="mt-0 mb-3">
                     </div>
                 </div>
                 <div>
-                    <button type="button" class="filter-key-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapse-sort"}>
+                    <button type="button" class="filter-key-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapse-sort">
                         <i class="key-closed bi bi-plus"></i>
                         <i class="key-opened bi bi-dash"></i>
                         <span>Sort</span>
@@ -103,19 +103,19 @@
             </form>
         </div>
         <div class="cards col-xxl-10 col-12">
-            <div class="character-browser-header row m-0 mb-2">
+            <div class="characterDTO-browser-header row m-0 mb-2">
                 <h1 class="text-xxl-start text-center">
                     CHARACTERS
-                    <span class="character-count" th:text="' (' + ${characterList.size()} + ')'"></span>
+                    <span class="characterDTO-count" th:text="' (' + ${characterList.size()} + ')'"></span>
                 </h1>
             </div>
             <div class="row justify-content-center">
-                <div class="col-auto mb-3" th:each="character : ${characterList}">
-                    <div class="character-browser-card card rounded-0 border-0">
-                        <img class="card-img-top rounded-0 shadow" th:src="${character.getImageURL()}" alt="Image is missing">
+                <div class="col-auto mb-3" th:each="characterDTO : ${characterList}">
+                    <div class="characterDTO-browser-card card rounded-0 border-0">
+                        <img class="card-img-top rounded-0 shadow" th:src="${characterDTO.getImageURL()}" alt="Image is missing">
                         <div class="card-body p-0">
-                            <p class="card-title" th:text="${character.getCharacterName().toUpperCase()}"></p>
-                            <a class="stretched-link" th:href="${controllerDomain} + '/' + ${character.getId()}"></a>
+                            <p class="card-title" th:text="${characterDTO.getCharacterName().toUpperCase()}"></p>
+                            <a class="stretched-link" th:href="${controllerDomain} + '/' + ${characterDTO.getId()}"></a>
                         </div>
                     </div>
                 </div>

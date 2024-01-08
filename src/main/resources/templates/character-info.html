@@ -2,7 +2,7 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${character.getCharacterName()}"></title>
+    <title th:text="${characterDTO.getCharacterName()}"></title>
 
     <link th:rel="stylesheet" th:href="@{/css/bootstrap-icons.css}">
     <link th:rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
@@ -16,41 +16,41 @@
 </nav>
 
 <div class="container">
-    <div class="character-info-header row">
+    <div class="characterDTO-info-header row">
         <h1 class="m-0">
-            <span class="character-name" th:text="${character.getCharacterName()}"></span>
-            <span class="real-name" th:if="${character.getRealName() != null}" th:text="' (' + ${character.getRealName()} + ')'"></span>
+            <span class="characterDTO-name" th:text="${characterDTO.getCharacterName()}"></span>
+            <span class="real-name" th:if="${characterDTO.getRealName() != null}" th:text="' (' + ${characterDTO.getRealName()} + ')'"></span>
         </h1>
     </div>
     <hr class="my-3">
-    <div class="character-info-main row">
+    <div class="characterDTO-info-main row">
         <div class="col-xxl-8 col-12">
-            <div class="character-description">
-                <p th:text="${character.getDescription()}"></p>
+            <div class="characterDTO-description">
+                <p th:text="${characterDTO.getDescription()}"></p>
             </div>
         </div>
         <div class="col-xxl-4 col-12">
             <div class="row justify-content-center">
-                <div class="character-info-card card rounded-0 border-0">
-                    <img class="card-img-top rounded-0 shadow" th:src="${character.getImageURL()}" alt="Image is missing">
+                <div class="characterDTO-info-card card rounded-0 border-0">
+                    <img class="card-img-top rounded-0 shadow" th:src="${characterDTO.getImageURL()}" alt="Image is missing">
                     <div class="card-body">
                         <table class="table table-sm table-bordered">
                             <tbody>
                             <tr>
                                 <td class="info-key">Character name</td>
-                                <td class="info-value" th:text="${character.getCharacterName()}"></td>
+                                <td class="info-value" th:text="${characterDTO.getCharacterName()}"></td>
                             </tr>
-                            <tr th:if="${character.getRealName() != null}">
+                            <tr th:if="${characterDTO.getRealName() != null}">
                                 <td class="info-key">Real name</td>
-                                <td class="info-value" th:text="${character.getRealName()}"></td>
+                                <td class="info-value" th:text="${characterDTO.getRealName()}"></td>
                             </tr>
                             <tr>
                                 <td class="info-key">Alignment</td>
-                                <td class="info-value" th:text="${character.getAlignment()}"></td>
+                                <td class="info-value" th:text="${characterDTO.getAlignment()}"></td>
                             </tr>
                             <tr>
                                 <td class="info-key">Publisher</td>
-                                <td class="info-value" th:text="${character.getPublisher()}"></td>
+                                <td class="info-value" th:text="${characterDTO.getPublisher()}"></td>
                             </tr>
                             </tbody>
                         </table>
