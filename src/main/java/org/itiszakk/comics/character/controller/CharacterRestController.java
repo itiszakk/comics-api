@@ -43,24 +43,6 @@ public class CharacterRestController {
         return characterService.get(ctx);
     }
 
-    private GetCharacterContext buildContext(RequestParameters parameters) {
-        checkRequestParameters(parameters);
-
-        GetCharacterContextBuilder builder = GetCharacterContext.builder();
-
-        if (StringUtils.isNotEmpty(parameters.getSortBy())) {
-            builder.sortBy(parameters.getSortBy());
-        }
-
-        List<Filter> filters = buildFilters(parameters);
-
-        if (CollectionUtils.isNotEmpty(filters)) {
-            builder.filters(filters);
-        }
-
-        return builder.build();
-    }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CharacterDTO saveCharacter(@RequestBody CharacterDTO characterDTO) {
@@ -83,6 +65,24 @@ public class CharacterRestController {
     @ResponseStatus(HttpStatus.OK)
     public void deleteCharacterById(@PathVariable int id) {
         characterService.delete(id);
+    }
+
+    private GetCharacterContext buildContext(RequestParameters parameters) {
+        checkRequestParameters(parameters);
+
+        GetCharacterContextBuilder builder = GetCharacterContext.builder();
+
+        if (StringUtils.isNotEmpty(parameters.getSortBy())) {
+            builder.sortBy(parameters.getSortBy());
+        }
+
+        List<Filter> filters = buildFilters(parameters);
+
+        if (CollectionUtils.isNotEmpty(filters)) {
+            builder.filters(filters);
+        }
+
+        return builder.build();
     }
 
     private void checkRequestParameters(RequestParameters parameters) {
